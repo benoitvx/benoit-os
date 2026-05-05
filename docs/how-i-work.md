@@ -6,6 +6,20 @@ A short field note on the operating system above the operating system.
 
 In 2026, *using* AI tools is not a differentiator. *Owning* a small agentic infrastructure tuned to your work is. This repo is the materialization of that idea for one operator.
 
+## Where I spend my time
+
+Across the Anthropic surface, my usage roughly splits as:
+
+- **Claude Code — 80%.** Where the actual work happens: shipping POCs, MCP servers, content, decks. The agentic primitives below are tuned for it.
+- **claude.ai — 10%.** For one-shot research with the connectors (Gmail, Drive, data.gouv, Parlement, Pappers). When the question is read-only and lives on the open web or my mailbox, it's faster than firing up Claude Code.
+- **Claude Cowork — 10%.** Long-running scheduled jobs, my weekly tech-watch pipeline, async agent runs that don't need me supervising.
+
+The 80% is why this repo exists — Claude Code is where the leverage compounds.
+
+## My second brain
+
+I run Obsidian as my second brain — meeting notes, research, drafts, decisions, an Index of weekly tech-watch syntheses. It's the source-of-truth that survives any tool, any laptop. That's why two of the skills in this repo touch Obsidian directly (`save-article` for ingest, `obsidian-vault-manager` / `obsidian-vault-organizer` agents for upkeep): the agentic stack and the second brain are the same surface.
+
 ## The four primitives
 
 I think of my Claude Code setup as four composable layers.

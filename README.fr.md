@@ -29,12 +29,23 @@ benoit-os/
 | `securite-anssi` | mention ANSSI / durcissement | Applique les règles essentielles de sécurité ANSSI |
 | `design-principles` | `/design-principles` | Applique un design system minimal et précis (taste Linear/Notion/Stripe) |
 
+## Skills externes que j'utilise
+
+Skills que j'utilise au quotidien mais qui viennent d'ailleurs :
+
+| Skill | Source |
+|---|---|
+| `rag-parse` | Anthropic builtin — parse PDF, DOCX, PPTX, XLSX en markdown localement |
+| `copywriting` | Anthropic builtin |
+| `skill-creator` | Anthropic builtin |
+| `find-skills` | Anthropic builtin |
+
 ## Agents (4)
 
 | Agent | Usage |
 |---|---|
-| `cadrer` | Dialogue socratique de 20-30 min pour cadrer un POC produit — issu d'[eig-vibe](https://github.com/benoitvx/eig-vibe) |
-| `runtime` | Setup pas-à-pas GitHub + skills + hébergement — issu d'[eig-vibe](https://github.com/benoitvx/eig-vibe) |
+| `cadrer` | Dialogue socratique de 20-30 min pour cadrer un POC produit |
+| `runtime` | Setup pas-à-pas GitHub + skills + hébergement |
 | `obsidian-vault-manager` | Gère notes, liens, frontmatter dans un vault Obsidian |
 | `obsidian-vault-organizer` | Réorganise et refactorise la structure d'un vault |
 

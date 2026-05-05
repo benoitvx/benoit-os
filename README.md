@@ -31,12 +31,23 @@ benoit-os/
 
 → More on each in [`skills/`](skills/)
 
+## External skills I use
+
+Skills I rely on daily but that ship from elsewhere:
+
+| Skill | Source |
+|---|---|
+| `rag-parse` | Anthropic builtin — parse PDFs, DOCX, PPTX, XLSX into markdown locally |
+| `copywriting` | Anthropic builtin |
+| `skill-creator` | Anthropic builtin |
+| `find-skills` | Anthropic builtin |
+
 ## Agents (4)
 
 | Agent | Use |
 |---|---|
-| `cadrer` | Socratic 20–30 min product framing dialog (zero tech jargon) — from [eig-vibe](https://github.com/benoitvx/eig-vibe) |
-| `runtime` | Step-by-step GitHub + skills + hosting setup — from [eig-vibe](https://github.com/benoitvx/eig-vibe) |
+| `cadrer` | Socratic 20–30 min product framing dialog (zero tech jargon) |
+| `runtime` | Step-by-step GitHub + skills + hosting setup |
 | `obsidian-vault-manager` | Manage notes, links, frontmatter in an Obsidian vault |
 | `obsidian-vault-organizer` | Reorganize and refactor a vault structure |
 
