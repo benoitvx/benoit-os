@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "defaultMode": "auto"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "node ~/.claude/plugins/marketplaces/claude-hud/dist/index.js"
+  },
+  "extraKnownMarketplaces": {
+    "claude-hud": {
+      "source": {
+        "source": "github",
+        "repo": "jarrodwatts/claude-hud"
+      },
+      "autoUpdate": true
+    }
+  },
+  "autoDreamEnabled": true,
+  "skipAutoPermissionPrompt": true,
+  "voiceEnabled": true
+}

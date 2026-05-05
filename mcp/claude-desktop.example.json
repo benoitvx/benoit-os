@@ -1,0 +1,31 @@
+{
+  "mcpServers": {
+    "docs": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "${HOME}/Dev/mcp-docs",
+        "mcp-docs"
+      ],
+      "env": {
+        "DOCS_BASE_URL": "https://docs.numerique.gouv.fr",
+        "DOCS_AUTH_MODE": "session",
+        "DOCS_SESSION_COOKIE": "${DOCS_SESSION_COOKIE}"
+      }
+    },
+    "education-data": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "supergateway@3.4.3",
+        "--streamableHttp",
+        "https://mcp.huwise.com/mcp",
+        "--header",
+        "x-domain: https://data.education.gouv.fr",
+        "--header",
+        "x-apikey: ${EDUCATION_DATA_API_KEY}"
+      ]
+    }
+  }
+}

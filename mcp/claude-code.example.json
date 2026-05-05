@@ -1,0 +1,19 @@
+{
+  "_comment": "Merge this 'mcpServers' block into your ~/.claude/settings.json",
+  "mcpServers": {
+    "docs": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "${HOME}/Dev/mcp-docs",
+        "mcp-docs"
+      ],
+      "env": {
+        "DOCS_BASE_URL": "https://docs.numerique.gouv.fr",
+        "DOCS_AUTH_MODE": "session",
+        "DOCS_SESSION_COOKIE": "${DOCS_SESSION_COOKIE}"
+      }
+    }
+  }
+}
