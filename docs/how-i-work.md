@@ -55,7 +55,7 @@ The clearest illustration of how the four primitives compose is a workflow I run
 
 The team gets a curated weekly read for ~5 minutes of upkeep. No manual collection, no copy-paste, no "I'll catch up next week." That's an operator multiplier.
 
-The pattern is templated and reusable in [`veille/`](../veille/) — strip the DINUM-specific 8 sources, point it at your own feeds, edit the prompt, ship it.
+The pattern is templated and reusable in [`weekly-watch/`](../weekly-watch/) — strip the DINUM-specific 8 sources, point it at your own feeds, edit the prompt, ship it.
 
 ## Why dotfiles for AI matter
 

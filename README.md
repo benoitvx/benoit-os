@@ -14,7 +14,7 @@ benoit-os/
 ├── mcp/                 # MCP server configs (templates, no secrets)
 ├── config/              # settings.json template + statusline script
 ├── plugins/             # Local plugins
-├── veille/              # Reusable weekly tech-watch pipeline template
+├── weekly-watch/        # Reusable weekly tech-watch pipeline template
 ├── docs/                # Ecosystem map + how I work with agents
 └── install.sh           # One-shot installer
 ```
@@ -69,7 +69,7 @@ Grouped by use-case, see [`mcp/README.md`](mcp/README.md):
 
 ## Recipes
 
-- [`veille/`](veille/) — reusable **weekly tech-watch pipeline** (cron + RSS/Atom collector + GHA workflow + synthesis prompt). Extracted from a pipeline I run in production for the IAE department of DINUM.
+- [`weekly-watch/`](weekly-watch/) — reusable **weekly tech-watch pipeline** (cron + RSS/Atom collector + GHA workflow + synthesis prompt). Extracted from a pipeline I run in production for the IAE department of DINUM.
 
 ## Install
 

@@ -43,7 +43,7 @@ Extracted from a real pipeline I run for the IAE department of DINUM (the [`veil
 
 ```bash
 # 1. Copy the template into your repo
-cp -r benoit-os/veille/* my-watch-repo/
+cp -r benoit-os/weekly-watch/* my-watch-repo/
 
 # 2. Configure sources
 cd my-watch-repo
