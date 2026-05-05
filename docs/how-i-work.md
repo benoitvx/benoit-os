@@ -43,6 +43,20 @@ A typical Tuesday morning:
 
 No glue code. The primitives compose. Each one is small, replaceable, and documented in this repo.
 
+## A real-world example: my weekly tech-watch pipeline
+
+The clearest illustration of how the four primitives compose is a workflow I run for the IAE department of DINUM, every Monday morning, on autopilot.
+
+**Stage 1 — collection (GitHub Actions, Monday 7h UTC).** A Python script reads a YAML list of 8 RSS/Atom sources (Latent Space, Pragmatic Engineer, MCP Blog, IBM Technology, etc.), filters by the past week's date range, fetches the full article text, and commits a structured JSON snapshot to the repo.
+
+**Stage 2 — synthesis (Claude Cowork, Monday ~10h).** A scheduled Cowork task reads that JSON, applies a 5-axis thematic synthesis prompt, writes a clean markdown digest, and updates the index.
+
+**Stage 3 — distribution (Docs MCP, on demand).** When I'm ready, `/publier-veille-docs` pushes the synthesis straight into La Suite Docs at the right node in the documentation tree.
+
+The team gets a curated weekly read for ~5 minutes of upkeep. No manual collection, no copy-paste, no "I'll catch up next week." That's an operator multiplier.
+
+The pattern is templated and reusable in [`veille/`](../veille/) — strip the DINUM-specific 8 sources, point it at your own feeds, edit the prompt, ship it.
+
 ## Why dotfiles for AI matter
 
 Dotfiles for shells codified a generation of developer taste — what aliases, which prompt, which keybindings. Dotfiles for AI codify *agentic* taste — what skills, which agents, which MCPs, what they're for. The codification is the point: the moment you can ship your agent stack to a new machine in one command, the stack stops being friction and starts being leverage.

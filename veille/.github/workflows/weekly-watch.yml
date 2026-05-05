@@ -1,0 +1,41 @@
+name: Weekly watch — collect
+
+on:
+  schedule:
+    - cron: '0 7 * * 1'  # Monday 7h UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install deps
+        run: pip install pyyaml
+
+      - name: Fetch articles → JSON
+        run: python fetch.py
+
+      - name: Commit & push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add watch/
+          if git diff --staged --quiet; then
+            echo "ℹ️ Nothing new"
+          else
+            git commit -m "📡 weekly watch $(date +%Y-%m-%d)"
+            git push
+          fi

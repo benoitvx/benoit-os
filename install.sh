@@ -69,7 +69,17 @@ else
   info "settings.json created from template"
 fi
 
-# 6. MCP — render configs from .env
+# 6. agent-vm — the sandbox foundation
+echo "→ agent-vm (sandbox)"
+if [[ ! -d "${HOME}/Dev/agent-vm" ]]; then
+  git clone https://github.com/benoitvx/agent-vm "${HOME}/Dev/agent-vm"
+  info "cloned agent-vm into ~/Dev/agent-vm"
+  warn "  → run 'agent-vm setup' once to finish initialization"
+else
+  info "agent-vm already present"
+fi
+
+# 7. MCP — render configs from .env
 echo "→ MCP servers"
 if [[ ! -f "${REPO_ROOT}/.env" ]]; then
   warn ".env not found — copy .env.example to .env, fill secrets, then re-run"

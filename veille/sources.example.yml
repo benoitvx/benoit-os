@@ -1,0 +1,25 @@
+# Weekly watch — sources config
+# Copy to sources.yml and adapt to your domain.
+#
+# Each source needs:
+#   - name: human-readable label (used in output JSON and synthesis)
+#   - url:  RSS 2.0 or Atom feed URL
+#
+# fetch.py auto-detects RSS vs Atom and filters by the previous calendar week.
+
+sources:
+  - name: Latent Space
+    url: https://www.latent.space/feed
+
+  - name: Pragmatic Engineer
+    url: https://newsletter.pragmaticengineer.com/feed
+
+  - name: MCP Blog
+    url: https://blog.modelcontextprotocol.io/index.xml
+
+  - name: bycloud
+    url: https://rss.beehiiv.com/feeds/Vy37NcFo03.xml
+
+  # Add your own:
+  # - name: My Source
+  #   url: https://example.com/feed
