@@ -18,16 +18,24 @@ benoit-os/
 └── install.sh           # One-shot installer
 ```
 
+## Where I run this — `agent-vm`
+
+Most of my agent work happens **inside [agent-vm](https://github.com/benoitvx/agent-vm)** — sandboxed Lima VMs scoped to a local folder, pre-configured with Chrome DevTools MCP, Docker, and dev tools. It solves the "give the agent autonomy without exposing the host" problem and is the foundation everything else in this repo plugs into.
+
+The skills, agents and MCPs of Benoit OS are designed to flow inside an agent-vm session — that's the safety + leverage combo I default to.
+
 ## Skills (6)
 
 | Skill | Trigger | What it does |
 |---|---|---|
 | `pause-session` | `/pause-session` | Save Claude Code session state to resume later via `claude --resume` |
 | `save-article` | `/save-article <url>` | Save a web article as clean markdown to an Obsidian vault |
-| `react-dsfr` | mention DSFR / react-dsfr | Build React UIs that conform to the French State design system |
-| `rgaa` | mention RGAA / a11y FR | Audit and apply French web accessibility standard (RGAA 4.1.2) |
-| `securite-anssi` | mention ANSSI / hardening | Apply ANSSI security rules for State-grade web apps |
+| `react-dsfr` † | mention DSFR / react-dsfr | Build React UIs that conform to the French State design system |
+| `rgaa` † | mention RGAA / a11y FR | Audit and apply French web accessibility standard (RGAA 4.1.2) |
+| `securite-anssi` † | mention ANSSI / hardening | Apply ANSSI security rules for State-grade web apps |
 | `design-principles` | `/design-principles` | Enforce a precise, minimal design system (Linear/Notion/Stripe taste) |
+
+† Also published as an official French gov skill in [`benoitvx/skills-etat`](https://github.com/benoitvx/skills-etat).
 
 → More on each in [`skills/`](skills/)
 

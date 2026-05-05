@@ -18,16 +18,24 @@ benoit-os/
 └── install.sh           # Installeur one-shot
 ```
 
+## Où je fais tourner tout ça — `agent-vm`
+
+L'essentiel de mon travail avec les agents se passe **dans [agent-vm](https://github.com/benoitvx/agent-vm)** — des VMs Lima sandboxées scopées à un dossier local, pré-configurées avec Chrome DevTools MCP, Docker et les outils dev. Ça résout le problème "donner de l'autonomie à l'agent sans exposer la machine" et c'est la fondation sur laquelle tout le reste de ce repo se branche.
+
+Les skills, agents et MCPs de Benoit OS sont pensés pour s'exécuter dans une session agent-vm — c'est la combinaison safety + leverage que je prends par défaut.
+
 ## Skills (6)
 
 | Skill | Trigger | Rôle |
 |---|---|---|
 | `pause-session` | `/pause-session` | Sauve l'état d'une session Claude Code pour reprise via `claude --resume` |
 | `save-article` | `/save-article <url>` | Sauvegarde un article web en markdown propre dans un vault Obsidian |
-| `react-dsfr` | mention DSFR / react-dsfr | Crée des UI React conformes au Design System de l'État |
-| `rgaa` | mention RGAA / accessibilité | Audit et application du référentiel RGAA 4.1.2 |
-| `securite-anssi` | mention ANSSI / durcissement | Applique les règles essentielles de sécurité ANSSI |
+| `react-dsfr` † | mention DSFR / react-dsfr | Crée des UI React conformes au Design System de l'État |
+| `rgaa` † | mention RGAA / accessibilité | Audit et application du référentiel RGAA 4.1.2 |
+| `securite-anssi` † | mention ANSSI / durcissement | Applique les règles essentielles de sécurité ANSSI |
 | `design-principles` | `/design-principles` | Applique un design system minimal et précis (taste Linear/Notion/Stripe) |
+
+† Aussi publié comme skill officiel État dans [`benoitvx/skills-etat`](https://github.com/benoitvx/skills-etat).
 
 ## Skills externes que j'utilise
 
