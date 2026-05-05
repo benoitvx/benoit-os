@@ -14,6 +14,7 @@ benoit-os/
 ├── mcp/                 # Configs MCP (templates, sans secrets)
 ├── config/              # Template settings.json + statusline
 ├── plugins/             # Plugins locaux
+├── templates/           # Templates CLAUDE.md / INSTRUCTIONS.md prêts à copier
 ├── weekly-watch/        # Template réutilisable de pipeline veille hebdo
 ├── docs/                # Carte écosystème + ma façon de bosser avec les agents
 └── install.sh           # Installeur one-shot
@@ -68,6 +69,7 @@ Voir [`mcp/README.md`](mcp/README.md) pour le détail :
 ## Recettes
 
 - [`weekly-watch/`](weekly-watch/) — pipeline **veille technologique hebdo** réutilisable (cron + collecteur RSS/Atom + workflow GHA + prompt de synthèse). Extrait d'une pipeline que je fais tourner en prod pour le département IAE de la DINUM.
+- [`templates/`](templates/) — templates `CLAUDE.md` / `INSTRUCTIONS.md` prêts à copier. Actuellement : `beta.gouv.md` pour les projets gouv FR (DSFR, RGAA, ANSSI, conventions commits FR).
 
 ## Install
 
