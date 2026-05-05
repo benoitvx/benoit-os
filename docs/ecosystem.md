@@ -13,10 +13,9 @@ Benoit OS sits at the center of a small constellation of repos. This file is the
 
 ## Skills I built (with their own audience)
 
-- **[skills-etat](https://github.com/benoitvx/skills-etat)** — bundle of Claude Code skills carrying French State standards (DSFR, RGAA, ANSSI, La Suite, data.gouv). The `react-dsfr`, `rgaa` and `securite-anssi` skills in this repo also live there as the official State-portée version.
-- **[data-gouv-skill](https://github.com/benoitvx/data-gouv-skill)** — Python · skill + lib to query the French open-data catalog. ★22.
-- **[claude-skill-save-webpage-to-obsidian](https://github.com/benoitvx/claude-skill-save-webpage-to-obsidian)** — Markdown · save web articles as Obsidian notes. ★7. *Synced with `skills/save-article/` in this repo.*
-- **[interview-coach-skill](https://github.com/benoitvx/interview-coach-skill)** — Claude Code skill covering the full job-search lifecycle (23 commands, scoring, drills, mock interviews, transcript analysis).
+- **[etalab-ia/skills](https://github.com/etalab-ia/skills)** — bundle of Claude Code skills carrying French State standards (DSFR, RGAA, ANSSI, La Suite, data.gouv). The `react-dsfr`, `rgaa` and `securite-anssi` skills in this repo also live there as the official State-portée version.
+- **[data-gouv-skill](https://github.com/benoitvx/data-gouv-skill)** — Python · skill + lib to query the French open-data catalog.
+- **[claude-skill-save-webpage-to-obsidian](https://github.com/benoitvx/claude-skill-save-webpage-to-obsidian)** — Markdown · save web articles as Obsidian notes. *Synced with `skills/save-article/` in this repo.*
 
 ## Bundles built on top
 
@@ -37,7 +36,7 @@ Benoit OS sits at the center of a small constellation of repos. This file is the
 
 ## Templates
 
-- **[dsfr-slides-template](https://github.com/benoitvx/dsfr-slides-template)** — Markdown-driven slides framework using the French State design system. ★6. Used in:
+- **[dsfr-slides-template](https://github.com/benoitvx/dsfr-slides-template)** — Markdown-driven slides framework using the French State design system. Used in:
   - **[claude-code-paris-02](https://github.com/benoitvx/claude-code-paris-02)** — *MCP Leading the People*, talk for the Claude Code Paris meetup, Feb 2025.
   - **[sovereign-agents-2026](https://github.com/benoitvx/sovereign-agents-2026)** — Talk on sovereign agents.
   - **[CEDHYS](https://github.com/benoitvx/CEDHYS)** — Pitch deck.

@@ -15,9 +15,9 @@ Daily productivity MCPs that read and write across my work surfaces.
 
 | MCP | Type | Source |
 |---|---|---|
-| **Docs** (La Suite) | Local | [benoitvx/mcp-docs](https://github.com/benoitvx/mcp-docs) — Python, 25 tools wrapping the La Suite Numérique Docs API |
-| **Gmail** | claude.ai connector | Search threads, draft replies, manage labels |
-| **Google Drive** | claude.ai connector | Browse and read documents from Drive |
+| **Docs** (La Suite) | Local | [`benoitvx/mcp-docs`](https://github.com/benoitvx/mcp-docs) — 25 tools wrapping the [La Suite Docs](https://docs.numerique.gouv.fr) API |
+| **Gmail** | claude.ai connector | [claude.ai](https://claude.ai) → Settings → Connectors → Gmail |
+| **Google Drive** | claude.ai connector | [claude.ai](https://claude.ai) → Settings → Connectors → Drive |
 
 → See `claude-desktop.example.json` for the **Docs** server config.
 
@@ -29,12 +29,12 @@ MCPs that turn open public datasets and registries into agent-queryable surfaces
 
 | MCP | Type | Source |
 |---|---|---|
-| **data.gouv** | claude.ai connector | French open-data catalog, datasets, organizations, tabular query |
-| **data.education** | Local | supergateway → `mcp.huwise.com` (data.education.gouv.fr) |
-| **Parlement (Tricoteuses)** | claude.ai connector | French Parliament — actors, amendments, votes, sessions, dossiers |
-| **Leximpact** | claude.ai connector | French territorial data — communes, EPCI, départements, circonscriptions |
-| **Open Legi** | claude.ai connector | Légifrance — codes, jurisprudence, JORF, consolidated texts |
-| **Pappers** | claude.ai connector | French companies, leaders, beneficial owners, legal documents, political actors |
+| **data.gouv** | claude.ai connector | [`datagouv/datagouv-mcp`](https://github.com/datagouv/datagouv-mcp) · [data.gouv.fr](https://www.data.gouv.fr) |
+| **data.education** | Local | supergateway → [`mcp.huwise.com`](https://mcp.huwise.com) · [data.education.gouv.fr](https://data.education.gouv.fr) |
+| **Parlement (Tricoteuses)** | claude.ai connector | [tricoteuses.fr](https://tricoteuses.fr) — actors, amendments, votes, sessions, dossiers |
+| **Leximpact** | claude.ai connector | [leximpact.an.fr](https://leximpact.an.fr) — communes, EPCI, départements, circonscriptions |
+| **Open Legi** | claude.ai connector | [legifrance.gouv.fr](https://www.legifrance.gouv.fr) — codes, jurisprudence, JORF |
+| **Pappers** | claude.ai connector | [pappers.fr](https://www.pappers.fr) — French companies, leaders, beneficial owners |
 
 → See `claude-desktop.example.json` for the **data.education** server config.
 
@@ -46,9 +46,9 @@ MCPs used inside coding sessions for documentation, model search, and browser au
 
 | MCP | Type | Source |
 |---|---|---|
-| **Context7** | Plugin marketplace | Live library docs — install via `/plugin install context7@claude-plugins-official` |
-| **Hugging Face** | claude.ai connector | Search models, datasets, spaces |
-| **Chrome DevTools** | Local | Chrome devtools MCP — see [chromedevtools/mcp](https://github.com/chromedevtools/mcp) |
+| **Context7** | Plugin marketplace | [`upstash/context7`](https://github.com/upstash/context7) — live library docs |
+| **Hugging Face** | claude.ai connector | [huggingface.co](https://huggingface.co) — models, datasets, spaces |
+| **Chrome DevTools** | Local | [`ChromeDevTools/chrome-devtools-mcp`](https://github.com/ChromeDevTools/chrome-devtools-mcp) |
 
 ---
 
@@ -58,7 +58,7 @@ Custom MCP Apps and prototypes I'm shipping to explore the surface.
 
 | MCP | Type | Source |
 |---|---|---|
-| **DVF** (real-estate) | Local MCP App | [benoitvx/dvf-mcp-app](https://github.com/benoitvx/dvf-mcp-app) — TS, Paris real-estate prices over data.gouv DVF dataset, full-stack MCP App with Leaflet UI |
+| **DVF** (real-estate) | Local MCP App | [`benoitvx/dvf-mcp-app`](https://github.com/benoitvx/dvf-mcp-app) — Paris real-estate prices over the data.gouv DVF dataset, full-stack MCP App with Leaflet UI |
 
 ---
 

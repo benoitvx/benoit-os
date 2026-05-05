@@ -35,7 +35,7 @@ Les skills, agents et MCPs de Benoit OS sont pensés pour s'exécuter dans une s
 | `securite-anssi` † | mention ANSSI / durcissement | Applique les règles essentielles de sécurité ANSSI |
 | `design-principles` | `/design-principles` | Applique un design system minimal et précis (taste Linear/Notion/Stripe) |
 
-† Aussi publié comme skill officiel État dans [`benoitvx/skills-etat`](https://github.com/benoitvx/skills-etat).
+† Aussi publié comme skill officiel État dans [`etalab-ia/skills`](https://github.com/etalab-ia/skills).
 
 ## Skills externes que j'utilise
 
@@ -44,9 +44,7 @@ Skills que j'utilise au quotidien mais qui viennent d'ailleurs :
 | Skill | Source |
 |---|---|
 | `rag-parse` | Anthropic builtin — parse PDF, DOCX, PPTX, XLSX en markdown localement |
-| `copywriting` | Anthropic builtin |
 | `skill-creator` | Anthropic builtin |
-| `find-skills` | Anthropic builtin |
 
 ## Agents (4)
 

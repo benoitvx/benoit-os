@@ -35,7 +35,7 @@ The skills, agents and MCPs of Benoit OS are designed to flow inside an agent-vm
 | `securite-anssi` † | mention ANSSI / hardening | Apply ANSSI security rules for State-grade web apps |
 | `design-principles` | `/design-principles` | Enforce a precise, minimal design system (Linear/Notion/Stripe taste) |
 
-† Also published as an official French gov skill in [`benoitvx/skills-etat`](https://github.com/benoitvx/skills-etat).
+† Also published as an official French gov skill in [`etalab-ia/skills`](https://github.com/etalab-ia/skills).
 
 → More on each in [`skills/`](skills/)
 
@@ -46,9 +46,7 @@ Skills I rely on daily but that ship from elsewhere:
 | Skill | Source |
 |---|---|
 | `rag-parse` | Anthropic builtin — parse PDFs, DOCX, PPTX, XLSX into markdown locally |
-| `copywriting` | Anthropic builtin |
 | `skill-creator` | Anthropic builtin |
-| `find-skills` | Anthropic builtin |
 
 ## Agents (4)
 
