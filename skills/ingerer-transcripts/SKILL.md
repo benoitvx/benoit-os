@@ -30,16 +30,28 @@ Cette skill suppose deux sources possibles, à activer selon ton setup :
 
 ### 2. Découverte
 
-**Notes collaboratives** :
-- Lister les documents top-level (équivalent `docs_list_documents` sans `parent_id`).
-- Filtrer côté client sur **un ou plusieurs patterns de titre** (un par outil de transcription utilisé). Exemples :
-  - `^Réunion "([^"]+)" du (\d{4}-\d{2}-\d{2}) à (\d{2}:\d{2})$` → `source_kind: docs_visio`, `meeting_id` = slug, datetime depuis groupes 2+3
-  - `^Enregistrement (\d{1,2}/\d{1,2}/\d{4}), (\d{1,2}:\d{2})$` → `source_kind: docs_transcript_irl`, `meeting_id` = doc UUID, datetime parsé via `strptime("%d/%m/%Y %H:%M")`
-- Toujours stocker un `source_kind` distinct par pattern, ça simplifie le routage et la déduplication.
+> **Cutoff par défaut : 48 h.** Sans ça, la skill remonte des transcripts pré-existant la mise en place du pipeline, ce qui produit du bruit. Exposer un argument `--since 24h|7d|...` ou `--all` pour désactiver.
+
+**Notes collaboratives** — privilégier la **recherche server-side ciblée** (équivalent `docs_search_documents`) sur un mot-clé du pattern, plutôt que de paginer tout le top-level :
+
+```
+docs_search_documents(query="Réunion", page_size=20)
+docs_search_documents(query="Enregistrement", page_size=20)
+```
+
+Pour chaque résultat, dans cet ordre :
+
+1. **Filtre cutoff** : skip si `updated_at < now - cutoff`. Les résultats étant triés par `updated_at` desc, on peut abandonner la pagination dès qu'un résultat plus vieux apparaît.
+2. **Filtre regex strict** sur le titre, **un par outil de transcription** :
+   - `^Réunion "([^"]+)" du (\d{4}-\d{2}-\d{2}) à (\d{2}:\d{2})$` → `source_kind: docs_visio`, `meeting_id` = slug, datetime depuis groupes 2+3
+   - `^Enregistrement (\d{1,2}/\d{1,2}/\d{4}), (\d{1,2}:\d{2})$` → `source_kind: docs_transcript_irl`, `meeting_id` = doc UUID, datetime parsé via `strptime("%d/%m/%Y %H:%M")`
+
+Toujours stocker un `source_kind` distinct par pattern, ça simplifie le routage et la déduplication.
 
 **Inbox tierce** :
 - `ls <meeting-notes>/Inbox/*.md` (ignorer `_README.md` et `.gitkeep`).
-- Pour chaque fichier : lire le frontmatter ; si `start_time` présent → utiliser ; sinon `os.path.getmtime` → ISO local.
+- Appliquer le **même cutoff** sur le `mtime` du fichier.
+- Pour chaque fichier dans le cutoff : lire le frontmatter ; si `start_time` présent → utiliser ; sinon `os.path.getmtime` → ISO local.
 
 ### 3. Filtre déjà-ingérés
 
@@ -82,7 +94,11 @@ Comparer le `summary` de l'event aux séries connues. Source de vérité par ord
 1. Les `_docs.md` présents dans chaque sous-dossier de `<meeting-notes>/` (frontmatter `docs_parent_id`, `naming_local`, etc.).
 2. Heuristique nom de dossier : matcher `summary` en lower-case + suppression accents contre les noms de sous-dossiers.
 
-Si aucun match : fallback `<meeting-notes>/Inbox/<datetime>_<id>.md` (ou note temp dans `<meeting-notes>/À router/`).
+**Réunions ad-hoc / non-récurrentes** (pas de série dédiée) :
+
+1. Si **2 attendees** ET un dossier 1:1 existe (`<meeting-notes>/<Prénom> x <Toi>/`) → router dedans avec la convention de la série.
+2. Si **>2 attendees** OU pas de dossier 1:1 correspondant → **NE PAS** shoehorner dans un dossier 1:1 existant. Proposer à la place `<meeting-notes>/Ad-hoc/<YYYY-MM-DD>_<slug-summary>.md` (slug = summary calendrier en kebab-case sans accents). Demander confirmation avant de créer le dossier `Ad-hoc/` s'il n'existe pas.
+3. **Aucun match calendrier** : fallback `<meeting-notes>/À router/<YYYY-MM-DD>_<HHMM>_<id-court>.md` + signaler à l'utilisateur qu'il devra router manuellement plus tard.
 
 Calculer le **numéro de semaine ISO** depuis `start` : `python3 -c "from datetime import date; print(date.fromisoformat('<YYYY-MM-DD>').isocalendar().week)"`.
 
