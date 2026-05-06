@@ -26,13 +26,14 @@ Most of my agent work happens **inside [agent-vm](https://github.com/benoitvx/ag
 
 The skills, agents and MCPs of Benoit OS are designed to flow inside an agent-vm session — that's the safety + leverage combo I default to.
 
-## Skills (7)
+## Skills (8)
 
 | Skill | Trigger | What it does |
 |---|---|---|
 | `pause-session` | `/pause-session` | Save Claude Code session state to resume later via `claude --resume` |
 | `save-article` | `/save-article <url>` | Save a web article as clean markdown to an Obsidian vault |
-| `correction-transcription` | mention transcript / SPEAKER_XX | Clean up auto-transcribed meeting notes (speakers, names, acronyms) and produce a structured CR |
+| `ingerer-transcripts` | `/ingerer-transcripts` | End-to-end pipeline: detect new raw transcripts (collab notes + 3rd-party inbox like Granola), match each to a calendar event (read-only iCal), route to the right meeting series folder, then hand off to `correction-transcription` |
+| `correction-transcription` | mention transcript / SPEAKER_XX | Clean up auto-transcribed meeting notes (speakers, names, acronyms) and produce a structured CR. Mandatory step 4: list all <90% confidence items before any rewrite |
 | `react-dsfr` † | mention DSFR / react-dsfr | Build React UIs that conform to the French State design system |
 | `rgaa` † | mention RGAA / a11y FR | Audit and apply French web accessibility standard (RGAA 4.1.2) |
 | `securite-anssi` † | mention ANSSI / hardening | Apply ANSSI security rules for State-grade web apps |

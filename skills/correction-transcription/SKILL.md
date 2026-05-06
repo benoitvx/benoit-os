@@ -14,11 +14,12 @@ Corriger les erreurs de transcription dans les notes de réunion et produire un 
 1. Lire la note à corriger
 2. **Récupérer le contexte des notes collaboratives liées** (voir section ci-dessous, optionnel) — étape utile pour disposer des notes prises en réunion en plus du transcript brut
 3. Identifier les speakers : utiliser les indications du prompt (ex. "SPEAKER_00 = Alice") ou déduire des indices contextuels (qui se présente, qui est interpellé par son prénom, les sujets nommés dans les notes collaboratives, etc.)
-4. Remplacer les `SPEAKER_XX` par les vrais prénoms/noms dans tout le transcript
-5. Corriger les erreurs (noms mal orthographiés, acronymes incorrects) en utilisant les référentiels personnels (voir section ci-dessous) **et les noms propres/acronymes présents dans les notes collaboratives**
-6. Ajouter le titre `## Transcript de la réunion` au-dessus du transcript corrigé
-7. Générer un `## Compte-rendu de la réunion` en début de note, en croisant transcript corrigé **et notes collaboratives** (les notes collaboratives reflètent les décisions/actions formalisées)
-8. Écrire le résultat final **dans la note locale uniquement** — ne pas republier vers la source des notes collaboratives
+4. **Checkpoint d'incertitude (obligatoire — voir section ci-dessous)** : avant toute écriture de correction, lister tous les éléments dont la confiance est <90 % et attendre confirmation utilisateur. Bloquer les étapes suivantes tant que la passe n'a pas été validée.
+5. Remplacer les `SPEAKER_XX` par les vrais prénoms/noms dans tout le transcript
+6. Corriger les erreurs (noms mal orthographiés, acronymes incorrects) en utilisant les référentiels personnels (voir section ci-dessous) **et les noms propres/acronymes présents dans les notes collaboratives**
+7. Ajouter le titre `## Transcript de la réunion` au-dessus du transcript corrigé
+8. Générer un `## Compte-rendu de la réunion` en début de note, en croisant transcript corrigé **et notes collaboratives** (les notes collaboratives reflètent les décisions/actions formalisées)
+9. Écrire le résultat final **dans la note locale uniquement** — ne pas republier vers la source des notes collaboratives
 
 ## Récupération du contexte des notes collaboratives (optionnel)
 
@@ -48,6 +49,37 @@ Pour chaque dossier de notes de réunion, placer un fichier `_docs.md` (ou équi
 - **Noms propres / acronymes** : prioriser l'orthographe des notes collaboratives (validée par les rédacteurs) sur celle du transcript audio
 - **Compte-rendu** : les notes collaboratives contiennent souvent déjà les points clés / décisions / actions sous forme structurée — s'appuyer dessus, ne pas réinventer
 - **Vérification** : si une décision ou action mentionnée dans le transcript audio n'apparaît pas du tout dans les notes, la marquer dans le compte-rendu mais signaler à l'utilisateur
+
+## Checkpoint d'incertitude (étape 4 — obligatoire)
+
+Avant d'appliquer la moindre correction au transcript, lister en une passe tous les éléments dont la confiance est inférieure à 90 %, groupés par catégorie. **Ne pas écrire la correction tant que l'utilisateur n'a pas validé / corrigé cette liste.**
+
+### Format de sortie strict
+
+```
+## Checkpoint d'incertitude (à valider avant correction)
+
+### Speakers (<90% confiance)
+- SPEAKER_00 → Alice Martin (~75%) — base : présentation "Alice, lead produit" + tour de table notes
+- SPEAKER_02 → ??? — base : aucun indice direct
+
+### Noms propres (<90% confiance)
+- "Camille Lambert" → vérifier orthographe (~60%) — base : pas dans les référentiels, prononciation possible "Lamberg"
+- "AcmeProduct" vs "Acme Product" (~80%) — base : transcript audio ambigu, notes ne tranchent pas
+
+### Intentions / décisions (<90% confiance)
+- "Décision : freeze sur ProjetX" (~70%) — base : phrase incomplète dans le transcript, notes ne mentionnent pas, à reconfirmer
+- "Action : envoyer le deck d'ici lundi" — assignée à @Bob ou @Charlie ? (~50%)
+
+**En attente de validation utilisateur avant d'appliquer les corrections.**
+```
+
+### Règles
+
+- Si **aucun** élément n'est <90 %, écrire explicitement "Aucune incertitude majeure — je peux procéder directement" et attendre quand même un GO court.
+- Pour chaque item : `valeur — confiance estimée — base d'évidence` (notes collaboratives, transcript, référentiel, calendrier, hypothèse).
+- Catégories : **Speakers**, **Noms propres** (personnes / entreprises / produits), **Intentions / décisions / actions**. Omettre une catégorie si vide.
+- Ne pas confondre "incertitude" et "ambiguïté résolue" : une fois validé par l'utilisateur, ne pas re-poser la question.
 
 ## Règle critique : direction des données
 
