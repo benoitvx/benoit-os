@@ -15,10 +15,11 @@ Cette skill suppose deux sources possibles, à activer selon ton setup :
 
 | Source | Localisation typique | Format de titre / fichier |
 |---|---|---|
-| Notes collaboratives (Docs/Notion/HackMD/…) | racine ou dossier dédié, exposé via un MCP `docs` | `Réunion "<id>" du <YYYY-MM-DD> à <HH:MM>` (ou pattern équivalent à régler) |
-| Inbox tierce (Granola, Otter, Read.ai…) | `<meeting-notes>/Inbox/` dans ton vault local | Frontmatter `start_time` ISO, sinon mtime fichier |
+| Notes collaboratives — outil de visio auto-transcrit | racine ou dossier dédié, exposé via un MCP `docs` | ex. `Réunion "<id>" du <YYYY-MM-DD> à <HH:MM>` |
+| Notes collaboratives — outil d'enregistrement IRL | racine ou dossier dédié, exposé via un MCP `docs` | ex. `Enregistrement <DD/MM/YYYY>, <HH:MM>` |
+| Inbox tierce (Granola, Alter, Otter, Read.ai…) | `<meeting-notes>/Inbox/` dans ton vault local | Frontmatter `start_time` ISO, sinon mtime fichier |
 
-> Adapter les conventions ci-dessus à ton propre vault / système de notes.
+> Adapter les patterns ci-dessus à ton propre vault / système de notes. La skill peut détecter **plusieurs patterns en parallèle** côté docs : déclare-les comme des regex avec leur logique d'extraction `(meeting_id, datetime_iso)` et un `source_kind` distinct (ex. `docs_visio`, `docs_transcript_irl`, `inbox_local`).
 
 ## Workflow
 
@@ -31,8 +32,10 @@ Cette skill suppose deux sources possibles, à activer selon ton setup :
 
 **Notes collaboratives** :
 - Lister les documents top-level (équivalent `docs_list_documents` sans `parent_id`).
-- Filtrer côté client sur le pattern de titre du transcript brut configuré.
-- Extraire `(meeting_id, datetime_iso)` du titre.
+- Filtrer côté client sur **un ou plusieurs patterns de titre** (un par outil de transcription utilisé). Exemples :
+  - `^Réunion "([^"]+)" du (\d{4}-\d{2}-\d{2}) à (\d{2}:\d{2})$` → `source_kind: docs_visio`, `meeting_id` = slug, datetime depuis groupes 2+3
+  - `^Enregistrement (\d{1,2}/\d{1,2}/\d{4}), (\d{1,2}:\d{2})$` → `source_kind: docs_transcript_irl`, `meeting_id` = doc UUID, datetime parsé via `strptime("%d/%m/%Y %H:%M")`
+- Toujours stocker un `source_kind` distinct par pattern, ça simplifie le routage et la déduplication.
 
 **Inbox tierce** :
 - `ls <meeting-notes>/Inbox/*.md` (ignorer `_README.md` et `.gitkeep`).
@@ -108,9 +111,10 @@ event_start: <ISO>
 event_end: <ISO>
 duration_minutes: <int>
 attendees: [<email>, <email>]
-source: docs|inbox
-source_doc_id: <id>            # si source=docs
-source_inbox_path: <path>      # si source=inbox
+source_kind: docs_visio|docs_transcript_irl|inbox_local
+source_doc_id: <id>                # si source_kind commence par docs_
+source_doc_meeting_id: <slug>      # si source_kind=docs_visio uniquement
+source_inbox_path: <path>          # si source_kind=inbox_local
 ingested_at: <ISO now>
 ---
 
@@ -139,13 +143,21 @@ Une fois la correction validée (ou la note brute créée si l'utilisateur veut 
   "schema_version": 1,
   "docs": {
     "<doc_id>": {
+      "source_kind": "docs_visio",
       "ingested_at": "<ISO>",
       "target_note": "<meeting-notes>/Synchro projet X/Hebdo S19.md",
       "event_summary": "Synchro projet X"
+    },
+    "<other_doc_id>": {
+      "source_kind": "docs_transcript_irl",
+      "ingested_at": "<ISO>",
+      "target_note": "<meeting-notes>/.../<note>.md",
+      "event_summary": "..."
     }
   },
   "inbox": {
     "<meeting-notes>/Inbox/2026-05-06_meet.md": {
+      "source_kind": "inbox_local",
       "ingested_at": "<ISO>",
       "sha256": "...",
       "target_note": "...",
@@ -154,6 +166,8 @@ Une fois la correction validée (ou la note brute créée si l'utilisateur veut 
   }
 }
 ```
+
+Le bucket `docs` regroupe tous les `source_kind` qui commencent par `docs_` (visio, transcript IRL, etc.). La déduplication se fait par UUID, le `source_kind` interne sert au routage et au récap.
 
 ### 5. Récap final
 
