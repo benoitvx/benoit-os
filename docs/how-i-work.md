@@ -18,7 +18,14 @@ The 80% is why this repo exists — Claude Code is where the leverage compounds.
 
 ## My second brain
 
-I run Obsidian as my second brain — meeting notes, research, drafts, decisions, an Index of weekly tech-watch syntheses. It's the source-of-truth that survives any tool, any laptop. That's why two of the skills in this repo touch Obsidian directly (`save-article` for ingest, `obsidian-vault-manager` / `obsidian-vault-organizer` agents for upkeep): the agentic stack and the second brain are the same surface.
+I run Obsidian as my second brain — meeting notes, research, drafts, decisions, an Index of weekly tech-watch syntheses. **All my notes go to Obsidian.** It's the source-of-truth that survives any tool, any laptop, and it's structured along [Karpathy's LLM Wiki framework](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) — a flat, agent-friendly knowledge base where every note is a context block an LLM can pull into a session.
+
+That's why three of the skills in this repo touch Obsidian directly:
+- `save-article` for ingest (web articles → structured markdown in `Veille/`)
+- `correction-transcription` for meetings — **I transcript every meeting** (Whisper + diarisation), and the skill cleans up the raw output: it resolves `SPEAKER_XX` to real names, fixes acronyms and proper nouns against my personal referentials, and emits a structured CR (Points clés / Décisions / Actions) on top of the corrected transcript
+- `obsidian-vault-manager` / `obsidian-vault-organizer` agents for upkeep
+
+The agentic stack and the second brain are the same surface.
 
 ## The four primitives
 
