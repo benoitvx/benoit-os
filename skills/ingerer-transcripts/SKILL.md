@@ -141,14 +141,23 @@ ingested_at: <ISO now>
 
 Pour la source notes collaboratives : récupérer le contenu via le MCP/API approprié.
 
-#### 4.e. Délégation à `correction-transcription`
+#### 4.e. Délégation à `correction-transcription` (automatique)
 
-Inviter l'utilisateur à lancer `/correction-transcription` sur la note créée — OU enchaîner directement en chargeant la skill `correction-transcription` dans la même session, qui va alors :
+**Par défaut : enchaîner immédiatement** la skill `correction-transcription` dans la même session, sans demander à l'utilisateur de relancer une commande. La note brute vient d'être créée → la correction est l'étape suivante évidente, pas une décision à reporter.
+
+Workflow déclenché :
 - Lire la note (étape 1)
-- Récupérer le contexte des notes collaboratives liées (étape 2) — utiliser `_docs.md` du dossier série
+- Récupérer le contexte des notes collaboratives liées (étape 2) — utiliser `_docs.md` du dossier série + le frontmatter de la note (attendees, summary)
 - Identifier les speakers (étape 3) — exploiter `attendees` du frontmatter
-- **Checkpoint d'incertitude étape 4 (obligatoire)** — voir `correction-transcription/SKILL.md`
-- Procéder aux étapes 5-9 après validation utilisateur
+- **Checkpoint d'incertitude étape 4 (obligatoire)** — voir `correction-transcription/SKILL.md`. Là, et seulement là, l'utilisateur reprend la main pour valider la liste d'incertitudes.
+- Procéder aux étapes 5-9 après validation du checkpoint
+
+**Exception — ne pas enchaîner** dans ces cas :
+- L'utilisateur a passé `--no-correction` à `/ingerer-transcripts` (mode dry-run / batch-ingest sans correction).
+- La note cible est dans un dossier "À router" (routage non résolu, pas la peine de corriger un truc dont on ne sait pas encore où il va).
+- L'ingestion est dans une boucle multi-transcripts (>1 candidat) : ingérer tout, puis enchaîner les corrections une par une à la fin **uniquement après confirmation utilisateur** (sinon ça noie l'utilisateur dans des checkpoints d'incertitude empilés).
+
+Si on **n'enchaîne pas**, terminer en signalant explicitement : "Note brute créée. Lance `/correction-transcription` sur cette note quand tu veux la traiter." (cas explicite, pas le défaut).
 
 #### 4.f. Mise à jour state file
 
