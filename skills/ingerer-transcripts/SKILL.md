@@ -96,9 +96,23 @@ Comparer le `summary` de l'event aux séries connues. Source de vérité par ord
 
 **Réunions ad-hoc / non-récurrentes** (pas de série dédiée) :
 
-1. Si **2 attendees** ET un dossier 1:1 existe (`<meeting-notes>/<Prénom> x <Toi>/`) → router dedans avec la convention de la série.
-2. Si **>2 attendees** OU pas de dossier 1:1 correspondant → **NE PAS** shoehorner dans un dossier 1:1 existant. Proposer à la place `<meeting-notes>/Ad-hoc/<YYYY-MM-DD>_<slug-summary>.md` (slug = summary calendrier en kebab-case sans accents). Demander confirmation avant de créer le dossier `Ad-hoc/` s'il n'existe pas.
-3. **Aucun match calendrier** : fallback `<meeting-notes>/À router/<YYYY-MM-DD>_<HHMM>_<id-court>.md` + signaler à l'utilisateur qu'il devra router manuellement plus tard.
+1. Si **2 attendees** ET un dossier 1:1 existe (`<meeting-notes>/<Prénom> x <Toi>/`) → router dedans avec la convention de la série existante.
+2. Si **>2 attendees** OU pas de dossier 1:1 correspondant → **NE PAS** shoehorner dans un dossier 1:1 existant. Proposer à la place :
+   - **Convention de nommage** : `[Participant 1] x [Participant 2] x [...] - JJ.MM.AAAA.md` (cf. ci-dessous).
+   - Dossier par défaut : `<meeting-notes>/Ad-hoc/`. Demander confirmation avant de créer le dossier s'il n'existe pas. L'utilisateur peut aussi router vers un autre emplacement (ex. `<projects>/<projet>/Meetings/`).
+3. **Aucun match calendrier** : fallback technique `<meeting-notes>/À router/<YYYY-MM-DD>_<HHMM>_<id-court>.md` (l'utilisateur renommera selon la convention au moment du routage).
+
+##### Convention de nommage `[Participant 1] x [Participant 2] x [...] - JJ.MM.AAAA.md`
+
+- **Participants** : un par attendee non-`<Toi>`, format `Prénom Nom` (et éventuellement la société pour les externes : `Alice Martin OrgX`, `Bob Dupont CEA`). Inclure `<Toi>` à la fin si pertinent (`... x <Toi>`).
+- **Date** : `JJ.MM.AAAA` (jour-mois-année avec points), basée sur `event_start`.
+- **Génération automatique** : extraire les prénoms depuis les `attendees` (emails) et proposer un nom à valider, plutôt que deviner les noms de famille / sociétés. Si un attendee est uniquement représenté par son email (pas dans le référentiel personnel), demander à l'utilisateur de préciser (`Prénom Nom` ou `Prénom Nom Société`).
+- **Exemples valides** :
+  - `Alice Martin x <Toi> - 06.05.2026.md`
+  - `Bob Dupont CEA x <Toi> - 29.04.2026.md`
+  - `Charlie Durand OrgX x <Toi> - 07.05.2026.md`
+  - `Alice x Bob x Charlie x <Toi> - 06.05.2026.md`
+- **Si la cible est un dossier de série existant avec sa propre convention** (`<meeting-notes>/<Prénom> x <Toi>/SXX.md`, `<meeting-notes>/<Hebdo>/Hebdo SXX.md`, etc.) : conserver la convention de la série, ne pas appliquer celle-ci.
 
 Calculer le **numéro de semaine ISO** depuis `start` : `python3 -c "from datetime import date; print(date.fromisoformat('<YYYY-MM-DD>').isocalendar().week)"`.
 
@@ -108,10 +122,17 @@ Présenter en une ligne :
 ```
 Match : "Synchro projet X" du 2026-05-04 10:00 → <meeting-notes>/Synchro projet X/Hebdo S19.md
    ↳ Series confiance: 95%   ↳ Semaine ISO confiance: 100%
-OK ? [validate / change-series / change-week / skip]
+OK ? [validate / change-series / change-week / change-name / skip]
 ```
 
-Si réponse autre que "validate" : laisser l'utilisateur corriger avant de continuer.
+Pour une réunion ad-hoc (cas 2 ci-dessus), la ligne devient :
+```
+Match : "Projet Y x OrgX" du 2026-05-07 11:00 → <meeting-notes>/Ad-hoc/Alice Martin OrgX x <Toi> - 07.05.2026.md
+   ↳ Nom proposé depuis attendees (à confirmer/amender si noms de famille manquants)
+OK ? [validate / change-folder / change-name / skip]
+```
+
+Si réponse autre que "validate" : laisser l'utilisateur corriger nom et/ou dossier avant de continuer.
 
 #### 4.d. Création de la note cible
 

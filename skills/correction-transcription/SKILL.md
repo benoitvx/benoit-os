@@ -20,6 +20,23 @@ Corriger les erreurs de transcription dans les notes de réunion et produire un 
 7. Ajouter le titre `## Transcript de la réunion` au-dessus du transcript corrigé
 8. Générer un `## Compte-rendu de la réunion` en début de note, en croisant transcript corrigé **et notes collaboratives** (les notes collaboratives reflètent les décisions/actions formalisées)
 9. Écrire le résultat final **dans la note locale uniquement** — ne pas republier vers la source des notes collaboratives
+10. **Proposer un renommage si nécessaire** : une fois les speakers identifiés et confirmés, vérifier que le nom de fichier suit la convention `[Participant 1] x [Participant 2] x [...] - JJ.MM.AAAA.md` (cf. section ci-dessous). Si la note est dans `<meeting-notes>/À router/`, dans `<meeting-notes>/Ad-hoc/`, ou si le nom actuel ne suit pas la convention (ex. `2026-05-07_1100_<id-court>.md`), proposer un renommage à l'utilisateur avant de clôturer la skill. Mettre à jour `<meeting-notes>/.transcripts-ingested.json` (`target_note`) si l'utilisateur valide le renommage.
+
+## Convention de nommage des notes (pour le renommage à l'étape 10)
+
+Format cible : `[Participant 1] x [Participant 2] x [...] - JJ.MM.AAAA.md`
+
+- **Participants** : un par personne effectivement présente (cf. `attendees` du frontmatter, déduplicé des invités absents). Format `Prénom Nom` (et éventuellement société pour les externes : `Alice Martin OrgX`, `Bob Dupont CEA`). Inclure `<Toi>` à la fin si pertinent.
+- **Date** : `JJ.MM.AAAA` (jour-mois-année avec points), basée sur `event_start`.
+- **Exemples valides** :
+  - `Alice Martin x <Toi> - 06.05.2026.md`
+  - `Charlie Durand OrgX x <Toi> - 07.05.2026.md`
+  - `Alice x Bob x Charlie x <Toi> - 06.05.2026.md`
+- **Exceptions — ne pas renommer** :
+  - Notes dans un dossier de série existant avec sa propre convention (`<meeting-notes>/<Prénom> x <Toi>/SXX.md`, `<meeting-notes>/<Synchro>/Hebdo SXX.md`, etc.)
+  - Notes que l'utilisateur a explicitement nommées différemment
+
+Proposer toujours, ne pas renommer silencieusement.
 
 ## Récupération du contexte des notes collaboratives (optionnel)
 
