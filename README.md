@@ -26,20 +26,24 @@ Most of my agent work happens **inside [agent-vm](https://github.com/benoitvx/ag
 
 The skills, agents and MCPs of Benoit OS are designed to flow inside an agent-vm session — that's the safety + leverage combo I default to.
 
-## Skills (8)
+## Skills (11)
 
 | Skill | Trigger | What it does |
 |---|---|---|
 | `pause-session` | `/pause-session` | Save Claude Code session state to resume later via `claude --resume` |
 | `save-article` | `/save-article <url>` | Save a web article as clean markdown to an Obsidian vault |
 | `ingerer-transcripts` | `/ingerer-transcripts` | End-to-end pipeline: detect new raw transcripts (collab notes + 3rd-party inbox like Granola), match each to a calendar event (read-only iCal), route to the right meeting series folder, then hand off to `correction-transcription` |
-| `correction-transcription` | mention transcript / SPEAKER_XX | Clean up auto-transcribed meeting notes (speakers, names, acronyms) and produce a structured CR. Mandatory step 4: list all <90% confidence items before any rewrite |
+| `correction-transcription` | mention transcript / SPEAKER_XX | Clean up auto-transcribed meeting notes (speakers, names, acronyms) and produce a structured CR. Mandatory step 4: list all <90% confidence items before any rewrite. Wikifies canonical entities in the CR and (optionally) cleans up the raw inbox source after validation. |
+| `vault-lint` ‡ | `/vault-lint` | Audit an Obsidian vault structured with the Karpathy LLM Wiki pattern — broken wikilinks, name duplicates, orphan canonical sheets, incomplete `Entities/` frontmatter. `--fix` auto-fills missing frontmatter. |
+| `wikifier` ‡ | `/wikifier` | Walk the vault and add `[[Name]]` wikilinks to plain-text mentions of canonical entities. Dry-run by default, `--apply` to write. One link per name per file. |
+| `ficher` ‡ | `/ficher <name>` | Create a canonical entity sheet under `Entities/` with the right template (person / organization / product / concept), update `Entities/Index.md`, then offer `/wikifier` + `/vault-lint`. |
 | `react-dsfr` † | mention DSFR / react-dsfr | Build React UIs that conform to the French State design system |
 | `rgaa` † | mention RGAA / a11y FR | Audit and apply French web accessibility standard (RGAA 4.1.2) |
 | `securite-anssi` † | mention ANSSI / hardening | Apply ANSSI security rules for State-grade web apps |
 | `design-principles` | `/design-principles` | Enforce a precise, minimal design system (Linear/Notion/Stripe taste) |
 
 † Also published as an official French gov skill in [`etalab-ia/skills`](https://github.com/etalab-ia/skills).
+‡ Operationalize the [Karpathy LLM Wiki pattern](docs/karpathy-pattern.md) in an Obsidian vault.
 
 → More on each in [`skills/`](skills/)
 
@@ -74,6 +78,7 @@ Grouped by use-case, see [`mcp/README.md`](mcp/README.md):
 
 - [`weekly-watch/`](weekly-watch/) — reusable **weekly tech-watch pipeline** (cron + RSS/Atom collector + GHA workflow + synthesis prompt). Extracted from a pipeline I run in production for the IAE department of DINUM.
 - [`templates/`](templates/) — drop-in `CLAUDE.md` / `INSTRUCTIONS.md` templates. Currently: `beta.gouv.md` for French government projects (DSFR, RGAA, ANSSI, French commit conventions).
+- [`docs/karpathy-pattern.md`](docs/karpathy-pattern.md) — how I structure an **Obsidian vault** so an LLM can read, write, and stay coherent across hundreds of notes without drifting. The `vault-lint`, `wikifier` and `ficher` skills operationalize this pattern. Adapted from Andrej Karpathy's [LLM-friendly personal wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f).
 
 ## Install
 
