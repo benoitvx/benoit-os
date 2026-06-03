@@ -84,12 +84,28 @@ PATH_TO_TYPE = {
     "Products": "product",
 }
 
-VALID_TYPES = {"personne", "organisation", "produit", "concept",
-               "person", "organization", "product"}
+# Per-language default `status:` value used when --fix needs to insert it.
+FR_TYPES = {"personne", "organisation", "produit"}  # "concept" is shared FR/EN
+EN_TYPES = {"person", "organization", "product"}
+VALID_TYPES = FR_TYPES | EN_TYPES | {"concept"}
 VALID_STATUS = {"actif", "archive", "active", "archived"}
 
 # Root folder name(s) for the canonical entities layer.
 ENTITIES_ROOTS = ("Entités", "Entities")
+
+
+def default_status_for(rel: Path, expected_type: str) -> str:
+    """Pick the right status default (FR/EN) when --fix has to insert one.
+
+    "concept" is ambiguous on its own (same word both languages), so we
+    fall back to the root folder name (`Entités/` → FR, `Entities/` → EN).
+    """
+    if expected_type in EN_TYPES:
+        return "active"
+    if expected_type in FR_TYPES:
+        return "actif"
+    # `concept` — disambiguate via the root folder name
+    return "actif" if str(rel).startswith("Entités/") else "active"
 
 
 def is_excluded(path: Path) -> bool:
@@ -215,7 +231,7 @@ def check_entites_frontmatter(all_files: list[Path]) -> list[tuple[Path, str, st
             issues.append((rel, "type_mismatch", f"{type_match.group(1)} → {expected}"))
 
         if not status_match:
-            issues.append((rel, "no_status", "actif"))
+            issues.append((rel, "no_status", default_status_for(rel, expected)))
         elif status_match.group(1) not in VALID_STATUS:
             issues.append((rel, "status_invalid", status_match.group(1)))
 
@@ -234,7 +250,8 @@ def fix_frontmatter_issue(rel: Path, issue_type: str, details: str) -> bool:
     text = path.read_text(encoding="utf-8")
 
     if issue_type == "no_frontmatter":
-        new_fm = f"---\ntype: {details}\nstatus: actif\n---\n\n"
+        status = default_status_for(rel, details)
+        new_fm = f"---\ntype: {details}\nstatus: {status}\n---\n\n"
         path.write_text(new_fm + text, encoding="utf-8")
         return True
 
@@ -338,7 +355,6 @@ def main() -> int:
     fm_issues = check_entites_frontmatter(all_files)
 
     fixable_issues = [i for i in fm_issues if i[1] not in ("type_mismatch", "status_invalid")]
-    non_fixable_issues = [i for i in fm_issues if i[1] in ("type_mismatch", "status_invalid")]
 
     fixed_count = 0
     if args.fix and fixable_issues:
@@ -347,7 +363,6 @@ def main() -> int:
                 fixed_count += 1
         fm_issues = check_entites_frontmatter(all_files)
         fixable_issues = [i for i in fm_issues if i[1] not in ("type_mismatch", "status_invalid")]
-        non_fixable_issues = [i for i in fm_issues if i[1] in ("type_mismatch", "status_invalid")]
 
     if fm_issues:
         out.append(f"## ⚠️ Incomplete entity frontmatter ({len(fm_issues)})\n")
