@@ -126,7 +126,7 @@ status: active
 - **Contact**: <contact email>
 
 ## Team
-- **Product lead**: [[Name]]
+- **Product lead**: <person>
 - <other key roles>
 
 ## Why it matters
