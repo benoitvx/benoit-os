@@ -37,13 +37,13 @@ EXCLUDE_PATH_PREFIXES = (
     "<watch>/Sources",
 )
 
-# Files that should never be wikified.
-SKIP_FILES = {
-    "Entities/Index.md",
-    "Entités/Index.md",
+# Files that should never be wikified — matched by basename (any folder),
+# so e.g. every `Index.md` in the vault (root + subindexes) is skipped.
+SKIP_BASENAMES = {
     "Index.md",
     "CLAUDE.md",
     "log.md",
+    "_README.md",
 }
 
 # Root folder name(s) for the canonical entities layer.
@@ -62,7 +62,7 @@ def is_excluded(rel: Path) -> bool:
     s = str(rel)
     if any(s.startswith(p) for p in EXCLUDE_PATH_PREFIXES):
         return True
-    return s.lower() in {sf.lower() for sf in SKIP_FILES}
+    return rel.name in SKIP_BASENAMES
 
 
 def collect_canonical_names() -> dict[str, Path]:
