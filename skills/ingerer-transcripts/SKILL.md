@@ -184,6 +184,8 @@ Si on **n'enchaîne pas**, terminer en signalant explicitement : "Note brute cr�
 
 Une fois la correction validée (ou la note brute créée si l'utilisateur veut différer la correction), mettre à jour `<meeting-notes>/.transcripts-ingested.json` :
 
+> **Cleanup de la source `inbox_local`** : la suppression du fichier brut dans `<meeting-notes>/Inbox/` est **déléguée à `correction-transcription`** (étape 12, prompt y/N après validation du compte-rendu). Cette skill ne supprime jamais le fichier brut elle-même, sauf si elle s'exécute en mode `--no-correction` (auquel cas elle ne propose pas non plus la suppression — c'est un mode batch-ingest brut sans cycle de vie complet).
+
 ```json
 {
   "schema_version": 1,

@@ -19,8 +19,10 @@ Corriger les erreurs de transcription dans les notes de réunion et produire un 
 6. Corriger les erreurs (noms mal orthographiés, acronymes incorrects) en utilisant les référentiels personnels (voir section ci-dessous) **et les noms propres/acronymes présents dans les notes collaboratives**
 7. Ajouter le titre `## Transcript de la réunion` au-dessus du transcript corrigé
 8. Générer un `## Compte-rendu de la réunion` en début de note, en croisant transcript corrigé **et notes collaboratives** (les notes collaboratives reflètent les décisions/actions formalisées)
-9. Écrire le résultat final **dans la note locale uniquement** — ne pas republier vers la source des notes collaboratives
+9. Écrire le résultat final **dans la note locale uniquement** — ne pas republier vers la source des notes collaboratives. **Wikifier les entités citées dans le compte-rendu uniquement** (pas dans le transcript brut) : pour chaque personne / organisation / produit / concept ayant une fiche dans `Entities/` (ou `Entités/`), entourer la 1ère occurrence par `[[Nom]]`. Pas de re-wikification à toutes les mentions (cf. règle Karpathy "1× par nom par fichier").
 10. **Proposer un renommage si nécessaire** : une fois les speakers identifiés et confirmés, vérifier que le nom de fichier suit la convention `[Participant 1] x [Participant 2] x [...] - JJ.MM.AAAA.md` (cf. section ci-dessous). Si la note est dans `<meeting-notes>/À router/`, dans `<meeting-notes>/Ad-hoc/`, ou si le nom actuel ne suit pas la convention (ex. `2026-05-07_1100_<id-court>.md`), proposer un renommage à l'utilisateur avant de clôturer la skill. Mettre à jour `<meeting-notes>/.transcripts-ingested.json` (`target_note`) si l'utilisateur valide le renommage.
+11. **Mettre à jour les fiches `Entities/` impactées** si la réunion a fait émerger une nouvelle info structurante : nouvel email, nouveau rôle, nouvel alias de transcription récurrent. Pour une **nouvelle entité** (personne, organisation, produit, concept) jamais fichée : déclencher `/ficher <nom>` plutôt que de l'ajouter sauvagement à la note.
+12. **Cleanup de la source inbox tierce** (optionnel, prompté) : si le frontmatter de la note contient `source_kind: inbox_local` + `source_inbox_path`, proposer en y/N la suppression du fichier brut original. Source de vérité : le frontmatter de la note corrigée. Ne pas supprimer dans ces cas : la note est dans `<meeting-notes>/À router/` (routage non résolu), l'utilisateur a passé `--no-correction` en amont, ou aucun compte-rendu n'a été validé.
 
 ## Convention de nommage des notes (pour le renommage à l'étape 10)
 
@@ -131,6 +133,8 @@ Cette skill **lit** depuis les notes collaboratives et **écrit** dans la note l
 ## Référentiels personnels
 
 > ⚠️ **À personnaliser.** Cette section doit contenir tes propres tableaux de noms propres, acronymes et produits à corriger systématiquement. Plus la liste est précise, meilleure est la correction.
+>
+> Si ton vault suit le [pattern Karpathy](../../docs/karpathy-pattern.md), la source canonique de vérité pour personnes / organisations / produits / concepts est `Entities/Index.md` (ou `Entités/Index.md`). Plutôt que de dupliquer la liste ici, charger l'index puis lire les fiches `Entities/.../Nom.md` concernées (la section "Notes" de chaque fiche liste les déformations de transcription courantes). Conserver dans ce SKILL.md la quick-ref des **acronymes universels** et **règles de casse** (toujours utiles, indépendantes du domaine), plus un mini-tableau de l'équipe directe pour résolution rapide des speakers.
 
 ### Format suggéré
 
