@@ -36,6 +36,7 @@ Les skills, agents et MCPs de Benoit OS sont pensés pour s'exécuter dans une s
 | `rgaa` † | mention RGAA / accessibilité | Audit et application du référentiel RGAA 4.1.2 |
 | `securite-anssi` † | mention ANSSI / durcissement | Applique les règles essentielles de sécurité ANSSI |
 | `design-principles` | `/design-principles` | Applique un design system minimal et précis (taste Linear/Notion/Stripe) |
+| `migrate-vibe` | `/migrate-vibe` | Fait le pont d'un projet (ou de la config globale) entre Claude Code et Mistral Vibe — `AGENTS.md` comme source unique, skills partagées via `skill_paths`, réversible. Embarque le script `cc2vibe.py` sans dépendance. |
 
 † Aussi publié comme skill officiel État dans [`etalab-ia/skills`](https://github.com/etalab-ia/skills).
 

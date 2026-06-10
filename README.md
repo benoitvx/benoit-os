@@ -26,7 +26,7 @@ Most of my agent work happens **inside [agent-vm](https://github.com/benoitvx/ag
 
 The skills, agents and MCPs of Benoit OS are designed to flow inside an agent-vm session — that's the safety + leverage combo I default to.
 
-## Skills (11)
+## Skills (12)
 
 | Skill | Trigger | What it does |
 |---|---|---|
@@ -41,6 +41,7 @@ The skills, agents and MCPs of Benoit OS are designed to flow inside an agent-vm
 | `rgaa` † | mention RGAA / a11y FR | Audit and apply French web accessibility standard (RGAA 4.1.2) |
 | `securite-anssi` † | mention ANSSI / hardening | Apply ANSSI security rules for State-grade web apps |
 | `design-principles` | `/design-principles` | Enforce a precise, minimal design system (Linear/Notion/Stripe taste) |
+| `migrate-vibe` | `/migrate-vibe` | Bridge a project (or global config) between Claude Code and Mistral Vibe — `AGENTS.md` as single source, skills shared via `skill_paths`, reversible. Bundles the dependency-free `cc2vibe.py`. |
 
 † Also published as an official French gov skill in [`etalab-ia/skills`](https://github.com/etalab-ia/skills).
 ‡ Operationalize the [Karpathy LLM Wiki pattern](docs/karpathy-pattern.md) in an Obsidian vault.
