@@ -1,0 +1,18 @@
+{
+  "_comment": "Mapping noms d'outils Claude Code -> Mistral Vibe. Éditable. Base: agent-skill-converter + doc Vibe. Valider contre `vibe` à l'install.",
+  "Read": "read_file",
+  "Write": "write",
+  "Edit": "edit",
+  "MultiEdit": "edit",
+  "NotebookEdit": "edit",
+  "Bash": "bash",
+  "BashOutput": "bash",
+  "Grep": "grep",
+  "Glob": "glob",
+  "LS": "glob",
+  "TodoWrite": "todo",
+  "Task": "task",
+  "Agent": "agent",
+  "WebFetch": "web_fetch",
+  "WebSearch": "web_search"
+}

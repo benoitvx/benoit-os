@@ -1,0 +1,8 @@
+{
+  "_comment": "Mapping alias de modèles Claude Code -> Mistral Vibe. Éditable : les noms de modèles évoluent, ajustez ici sans toucher au script.",
+  "opus": "devstral-2",
+  "sonnet": "devstral-2",
+  "haiku": "mistral-small-latest",
+  "default": "devstral-2",
+  "inherit": "devstral-2"
+}
